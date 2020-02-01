@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Address Information</title>
+</head>
+<body>
+
+    <h1>Address Registration Form</h1><br><br>
+
+    {{actionmsg}}
+
+    <br><br>
+
+    <form action="http://localhost:5000/address/save/" method="post">
+
+        Address ID: <input type="text" name="adrid" value="{{address.id}}"><br><br>
+        Address City: <input type="text" name="adrcity" value="{{address.city}}"><br><br>
+        Address State: <input type="text" name="adrstate" value="{{address.state}}"><br><br>
+        Address Pincode: <input type="text" name="adrpincode" value="{{address.pincode}}"><br><br>
+
+    <input type="submit">
+    </form>
+    <br><br>
+
+    {%if addresslist%}
+
+    <table border="1">
+        <thead>
+        <th>Address ID</th><th>Address City</th><th>Address State</th><th>Address Pincode</th><th>Action</th>
+        </thead>
+        {%for address in addresslist%}
+    <tbody>
+    <td>{{address.id}}</td>
+    <td>{{address.city}}</td>
+    <td>{{address.state}}</td>
+    <td>{{address.pincode}}</td>
+    <td>
+        <a href="http://localhost:5000/address/edit/{{address.id}}">Edit</a>
+        <a href="http://localhost:5000/address/delete/{{address.id}}">Delete</a>
+    </td>
+    </tbody>
+        {%endfor%}
+</table>
+{%endif%}
+
+<hr>
+
+<h1>College Registration Form</h1>
+
+{{actionmsg}}
+
+<br><br>
+
+    <form action="http://localhost:5000/college/save/" method="post">
+
+        College ID: <input type="text" name="clgid" value="{{college.id}}"><br><br>
+        College Name: <input type="text" name="clgname" value="{{college.name}}"><br><br>
+        College Code: <input type="text" name="clgcode" value="{{college.code}}"><br><br>
+        College Address:
+
+                        <select name="clgadr">
+                                 <option value="select">---Select---</option>
+                            {%for address in addresslist %}
+                                 <option value="{{address.id}}">{{address.city}}</option>
+                            {% endfor %}
+                        </select>
+
+
+        <br><br>
+        <input type="submit">
+
+    </form>
+
+        <br><br>
+
+   {%if collegelist %}
+
+    <table border="1">
+        <thead>
+        <th>College ID</th><th>College Name</th><th>College Code</th><th>College Address</th><th>Action</th>
+        </thead>
+
+        {% for college in collegelist %}
+        <tbody>
+        <td>{{college.id}}</td>
+        <td>{{college.name}}</td>
+        <td>{{college.code}}</td>
+        <td>{{college.address.city}}</td>
+        <td>
+            <a href="http://localhost:5000/college/edit/{{college.id}}">Edit</a>
+            <a href="http://localhost:5000/college/delete/{{college.id}}">Delete</a>
+        </td>
+        </tbody>
+        {% endfor %}
+    </table>
+
+    {% endif %}
+</body>
+</html>
